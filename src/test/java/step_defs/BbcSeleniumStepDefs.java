@@ -6,11 +6,20 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import org.junit.After;
 import org.junit.Assert;
 
 public class BbcSeleniumStepDefs {
 
     BbcSite bbcSite = new BbcSite();
+
+
+    public void doSomthingAfter ()
+    {
+        bbcSite.quit();
+    }
+
 
     @Given("I can access the bbc home page")
     public void i_can_access_the_bbc_home_page() throws Throwable {
@@ -49,9 +58,19 @@ public class BbcSeleniumStepDefs {
     @Then("I receive an error of {string}")
     public void i_receive_an_error_of(String errorMsg) {
         bbcSite.bbcSignInPage().clicksubmitButton();
-        Assert.assertEquals(errorMsg, bbcSite.bbcSignInPage().getErrorText());
+        Assert.assertEquals(errorMsg, bbcSite.bbcSignInPage().getPasswordErrorText());
     }
 
 
+    @Then("I receive a username error {string}")
+    public void iReceiveAUsernameError(String userrg0) {
+        bbcSite.bbcSignInPage().clicksubmitButton();
+        Assert.assertEquals(userrg0, bbcSite.bbcSignInPage().getUsernameErrorText());
 
+    }
+
+    @Then("I close the window")
+    public void iCloseTheWindow() {
+        bbcSite.quit();
+    }
 }

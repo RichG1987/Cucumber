@@ -8,10 +8,22 @@ Feature: Basic selenium tests on the BBC website
     When I click the sign in link
     Then I should access the sign in page
 
+
+
+
   Scenario: I can input name and password details that receives an error for lack of letters
     Given I am on the Sign-In page
     When I input username "Dave@mail.com"
     And I input password "abcd"
-    Then I receive an error of "xyz"
+    Then I receive an error of "Sorry, that password is too short. It needs to be eight characters or more."
+    Then I close the window
+
+  Scenario: I can input name invalid username that receives an error for incorrect format
+    Given I am on the Sign-In page
+    When I input username "Dave@"
+    And I input password "abcd"
+    Then I receive a username error "Sorry, that email doesn’t look right. Please check it's a proper email."
+    Then I close the window
+
 
 
